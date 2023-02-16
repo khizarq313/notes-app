@@ -1,0 +1,40 @@
+.add-note-btn {
+    background: transparent;
+    position: fixed;
+    bottom: 10rem;
+    right: 5rem;
+    width: 6rem;
+    height: 6rem;
+    background-color: #3368fe;
+    color: white;
+    border-radius: 100%;
+    transform: translate(1rem, 1rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+}
+
+.add-note-btn::after {
+    content: "";
+    position: fixed;
+    width: 6rem;
+    height: 6rem;
+    background-color: #3368fe;
+    border-radius: 100%;
+    z-index: -10;
+    transform: scale(1);
+    transition: all 0.8s;
+    opacity: 1;
+}
+
+.add-note-btn:active {
+    transform: translate(10%) scale(0.8);
+    transition: all 0.5s;
+}
+
+.add-note-btn:hover::after {
+    transform: scale(2);
+    transition: all 1s;
+    opacity: 0;
+}

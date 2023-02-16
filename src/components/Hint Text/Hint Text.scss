@@ -1,0 +1,19 @@
+.hint-container {
+    position: fixed;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+}
+
+.hint-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hint-text>h1 {
+    font-size: 3.5rem;
+    white-space: nowrap;
+}
