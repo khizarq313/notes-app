@@ -1,0 +1,218 @@
+.main {
+    padding: 13rem 1rem 1rem 9rem;
+    width: 100%;
+    padding-bottom: 90px;
+    overflow-y: auto;
+    column-count: 6;
+    column-gap: 0.5rem;
+    background-color: inherit;
+    opacity: 1;
+}
+
+.archive-main {
+    #notes {
+        opacity: 0;
+    }
+}
+
+.light-empty-btn {
+    z-index: 12;
+    position: fixed;
+    font-size: 18px;
+    right: 3rem;
+    top: 12rem;
+    padding: 0.4rem;
+    border-radius: 6px;
+    color: black;
+    background-color: white;
+
+    &::after {
+        content: "";
+        background-color: black;
+        opacity: 0.2;
+        z-index: -12;
+        position: absolute;
+        border-radius: 6px;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.note {
+    position: relative;
+    overflow: hidden;
+    break-inside: avoid;
+    min-height: 10rem;
+    max-height: 70rem;
+    padding: 1.2rem;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    opacity: 0.9;
+    transition:  0.2s ease-in;
+
+    & > div {
+        width: 100%;
+    }
+
+    & > ul {
+        margin-bottom: 0.8rem;
+        overflow-y: hidden;
+    }
+
+    & > h2 {
+        margin-bottom: 0.8rem;
+    }
+
+    & > h3 {
+        margin-bottom: 0.8rem;
+    }
+}
+
+.note:hover {
+    transform: scale(0.9);
+    opacity: 1;
+    transition:  0.2s ease-in;
+    overflow: hidden;
+}
+
+
+.white-box {
+    border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.black-box {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.pin-btn {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    height: 30px;
+    width: 30px;
+    border-radius: 100%;
+}
+
+.img-on-note {
+    position: relative;
+    overflow: hidden;
+    break-inside: avoid;
+    width: 100%;
+}
+
+.tasks-on-note {
+   
+    span {
+        display: flex;
+        align-items: center;
+        list-style: none;
+        display: flex;
+        word-wrap: break-word;
+    }
+
+    p {
+        padding: 1rem;
+        width: 90%;
+        font-size: 18px;
+    }
+}
+
+.clear-trash-btn,.add-note-btn {
+    background: transparent;
+    position: fixed;
+    bottom: 10rem;
+    right: 5rem;
+    width: 6rem;
+    height: 6rem;
+    background-color: #3368fe;
+    color: white;
+    border-radius: 100%;
+    transform: translate(1rem, 1rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    cursor: pointer;
+}
+
+.clear-trash-btn::after,.add-note-btn::after {
+    content: "";
+    position: fixed;
+    width: 6rem;
+    height: 6rem;
+    background-color: #3368fe;
+    border-radius: 100%;
+    z-index: -10;
+    transform: scale(1);
+    transition: all 0.5s ease-in-out;
+    opacity: 1;
+}
+
+.clear-trash-btn:active,.add-note-btn:active {
+    transform: translate(10%) scale(0.8);
+    transition: all 0.5s ease-in-out;
+}
+
+.clear-trash-btn:hover::after,.add-note-btn:hover::after {
+    transform: scale(2);
+    transition: all 1s ease-in-out;
+    opacity: 0;
+}
+
+.clear-trash-panel,.clear-trash-panel-white {
+    color: white;
+    background-color: #000;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    border: 1px solid #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    text-align: center;
+    padding: 1rem;
+    animation: smooth-panel-open 0.5s ease-in-out;
+
+    span {
+        display: flex;
+    }
+
+    h2 {
+        font-size: 2.2rem;
+        margin: 1rem;
+    }
+}
+
+.clear-trash-panel-white {
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #000;
+}
+
+@keyframes smooth-panel-open {
+    0%{
+        opacity: 0;
+        transform:translate(-50%, -50%) scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform:translate(-50%, -50%) scale(1);
+    }
+}
+
+.archive-btn,.delete-all-btn,.archive-btn-white,.delete-all-btn-white {
+    border: 1px solid #fff;
+    font-size: 1.4rem;
+    padding: 1rem 1.5rem;
+    margin: 1rem;
+}
+
+.archive-btn-white,.delete-all-btn-white {
+    border: 1px solid #000;
+}
