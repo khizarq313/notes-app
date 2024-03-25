@@ -152,7 +152,7 @@
                 required: true
             }
         },
-        emits: ["bin-length", "exit-archive","close-lockscreen", "password-created"],
+        emits: ["bin-length"],
         data: function(): Datatype {
             return{
                 editorIsOpen: false,
@@ -201,7 +201,7 @@
             getNotesFromDB: async function() {
                 const url = "https://notes-app-313-default-rtdb.asia-southeast1.firebasedatabase.app/Notes/.json";
                 const response = await fetch(url);
-                const storedNotesInfo = await response.json();
+                const storedNotesInfo: NoteType[] = await response.json();
                 if( storedNotesInfo ) {
                     const tempNotesArray = Object.values(storedNotesInfo);
                     tempNotesArray.forEach((note: NoteType) => {
@@ -341,25 +341,23 @@
                 this.closeEditor();
             },
             editNote: function(noteId: string) {
-                const selectedNote: NoteType = this.storedNotes.find((note: NoteType) => (note.id === noteId));
-                const tasks: TaskType[] = selectedNote.tasks.filter((task: TaskType) => {
+                const selectedNote: NoteType[] = this.storedNotes.filter((note: NoteType) => (note.id === noteId));
+                const tasks: TaskType[] = selectedNote[0].tasks.filter((task: TaskType) => {
                     return task.data.trim() !== "";
                 });
-                const images: string[] = selectedNote.images.filter((imgSrc: string) => {
+                const images: string[] = selectedNote[0].images.filter((imgSrc: string) => {
                     return imgSrc !== "";
                 })
-                if (selectedNote) {
                     this.id = noteId;
-                    this.pin = selectedNote.pin;
-                    this.title = selectedNote.title;
-                    this.content = selectedNote.content;
+                    this.pin = selectedNote[0].pin;
+                    this.title = selectedNote[0].title;
+                    this.content = selectedNote[0].content;
                     this.tasksList = tasks;
-                    this.theme = selectedNote.theme;
-                    this.liked = selectedNote.liked;
-                    this.archived = selectedNote.archived;
-                    this.trashed = selectedNote.trashed;
+                    this.theme = selectedNote[0].theme;
+                    this.liked = selectedNote[0].liked;
+                    this.archived = selectedNote[0].archived;
+                    this.trashed = selectedNote[0].trashed;
                     this.images = images;
-                }
                 this.openEditor();
             },
             closeEditor: function() {
@@ -472,45 +470,12 @@
                 this.checkBinLength();
                 this.emptyTrashConfirmPanel = false;
             },
-            openArchive: function() {
-                this.$emit("close-lockscreen");
-            },
-            passwordCreated: function(passValue: string) {
-                this.$emit("password-created", passValue);
-            },
             openTrashPanel: function() {
                 this.emptyTrashConfirmPanel = true;
             },
             closeTrashPanel: function() {
                 this.emptyTrashConfirmPanel = false;
             },
-            exitArchive: function() {
-                this.showPass = false;
-                this.passFailPanel = false;
-                this.newPass = "";
-                this.enteredPass = "";
-                this.$emit("exit-archive");
-            },
-            savePass: function() {
-                this.$emit("password-created",this.newPass);
-                this.newPass = "";
-                this.showPass = false;
-            },
-            checkPass: function() {
-                if (this.enteredPass === this.password) {
-                    this.$emit("close-lockscreen");
-                } else {
-                    this.passFailPanel = true;
-                }
-                this.enteredPass = "";
-                this.showPass = false;
-            },
-            changePassVisibility: function() {
-                this.showPass = !this.showPass;
-            },
-            tryPassAgain: function() {
-                this.passFailPanel = false;
-            }
         },
         computed: {
             noteIsNew: function(): boolean {
