@@ -1,96 +1,100 @@
 <template>
-    <section class="main">
-        <hint-text :currentPanelNotes="currentPanelNotes" 
-            :panel="panel"
-            :panel-length="homePanelLength"
-            @open-editor="openEditor">
-        </hint-text>
-        <pin-notes v-if="panel === 'Notes'" :pin-notes="pinnedNotes"
-            @edit-note="editNote">
-        </pin-notes>
-        <div v-for="(note,index) in currentPanelNotes" 
-            :key="index" 
-            :class="currentTheme(note.theme)"
-            id="notes"
-            @click="editNote(note.id)">
-                <button v-if="note.pin && panel === 'Notes'" class="pin-btn">
-                    <pin></pin>
-                </button>
-                <h2 v-if="note.title !== ''">{{ note.title }}</h2>
-                <div v-if="note.tasks.length > 0">
-		            <div v-for="(task, index) in note.tasks" :key="index" class="tasks-on-note">
-                        <span v-if="task.data !== '' && task.id !== ''">
-                            <button class="checkbox">
-                            <input type="checkbox" style="display: none;" v-model="task.completed"> 
-                            <span v-if="task.completed" class="material-symbols-outlined">done</span>
-                            </button>
-			                <p :class="task.completed?'task-completed':''"> {{ task.data }} </p>
-                        </span>
-	    	        </div>
-    	        </div>
-                <template v-if="note.images.length > 0">
-                    <div v-for="(image,index) in note.images" :key="index" >
-                        <img v-if="image !== ''" :src="image" alt="" class="img-on-note">
+    <span>
+        <login-page v-if="loginPage" @user-info="getUserInfo"></login-page>
+        <section class="main">
+            <hint-text :currentPanelNotes="currentPanelNotes" 
+                :panel="panel"
+                :panel-length="homePanelLength"
+                @open-editor="openEditor">
+            </hint-text>
+            <pin-notes v-if="panel === 'Notes'" :pin-notes="pinnedNotes"
+                @edit-note="editNote">
+            </pin-notes>
+            <div v-for="(note,index) in currentPanelNotes" 
+                :key="index" 
+                :class="currentTheme(note.theme)"
+                id="notes"
+                @click="editNote(note.id)">
+                    <button v-if="note.pin && panel === 'Notes'" class="pin-btn">
+                        <pin></pin>
+                    </button>
+                    <h2 v-if="note.title !== ''">{{ note.title }}</h2>
+                    <div v-if="note.tasks.length > 0">
+                        <div v-for="(task, index) in note.tasks" :key="index" class="tasks-on-note">
+                            <span v-if="task.data !== '' && task.id !== ''">
+                                <button class="checkbox">
+                                <input type="checkbox" style="display: none;" v-model="task.completed"> 
+                                <span v-if="task.completed" class="material-symbols-outlined">done</span>
+                                </button>
+                                <p :class="task.completed?'task-completed':''"> {{ task.data }} </p>
+                            </span>
+                        </div>
                     </div>
-                </template>
-                <h3 v-if="note.content !== ''">{{ note.content }}</h3>
-        </div>
-        <button v-if="panel === 'Notes'" @click="openEditor" class="add-note-btn">
-            <span class="material-symbols-outlined">add</span>
-        </button>
-        <button v-if="panel === 'Trash' && recycleBin.length > 0" @click="openTrashPanel" class='clear-trash-btn'>
-            <span class="material-symbols-outlined">delete_forever</span>
-        </button>
-        <div v-if="emptyTrashConfirmPanel" :class="isDark ? 'clear-trash-panel' : 'clear-trash-panel-white'">
-            <h2>Are you sure you want to delete all notes?</h2>
-            <span>
-                <button :class="isDark ? 'delete-all-btn' : 'delete-all-btn-white'" @click="closeTrashPanel">Cancel</button>
-                <button :class="isDark ? 'delete-all-btn' : 'delete-all-btn-white'" @click="emptyTrash">Delete all</button>
-            </span>
-        </div>
-        <div class="overlay" v-if="emptyTrashConfirmPanel" @click="closeTrashPanel"></div>
-    </section>
-    <note-editor v-if="editorIsOpen"
-        @title-update="updateTitle"
-        @content-update="updateContent"
-        @like-update="updateLike"
-        @change-theme="changeTheme"
-        @images-update="updateImages"
-        @deleteImage="deleteImage"
-        @copy-note="copyNote"
-        @bin-update="updateBin"
-        @archive-update="updateArchive"
-        @delete-note="deleteNote"
-        @cancel-the-note="deleteNote"
-        @add-task="addTask"
-        @delete-task="deleteTask"
-        @change-task-status="changeTaskStatus"
-        @task-data-update="taskDataUpdate"
-        @task-status-update="taskStatusUpdate"
-        @cancel-task="clearTaskData"
-        @change-pin="changePin"
-        @save-the-note="saveTheNote(false)"
-        :note-is-new="noteIsNew"
-        :pin="pin"
-        :title="title"
-        :content="content"
-        :theme="theme"
-        :liked="liked"
-        :archived="archived"
-        :trashed="trashed"
-        :images="images"
-        :task-data="taskData"
-        :task-status="taskStatus"
-        :tasks-list="tasksList"
-        >
-    </note-editor>
+                    <template v-if="note.images.length > 0">
+                        <div v-for="(image,index) in note.images" :key="index" >
+                            <img v-if="image !== ''" :src="image" alt="" class="img-on-note">
+                        </div>
+                    </template>
+                    <h3 v-if="note.content !== ''">{{ note.content }}</h3>
+            </div>
+            <button v-if="panel === 'Notes'" @click="openEditor" class="add-note-btn">
+                <span class="material-symbols-outlined">add</span>
+            </button>
+            <button v-if="panel === 'Trash' && recycleBin.length > 0" @click="openTrashPanel" class='clear-trash-btn'>
+                <span class="material-symbols-outlined">delete_forever</span>
+            </button>
+            <div v-if="emptyTrashConfirmPanel" :class="isDark ? 'clear-trash-panel' : 'clear-trash-panel-white'">
+                <h2>Are you sure you want to delete all notes?</h2>
+                <span>
+                    <button :class="isDark ? 'delete-all-btn' : 'delete-all-btn-white'" @click="closeTrashPanel">Cancel</button>
+                    <button :class="isDark ? 'delete-all-btn' : 'delete-all-btn-white'" @click="emptyTrash">Delete all</button>
+                </span>
+            </div>
+            <div class="overlay" v-if="emptyTrashConfirmPanel" @click="closeTrashPanel"></div>
+        </section>
+        <note-editor v-if="editorIsOpen"
+            @title-update="updateTitle"
+            @content-update="updateContent"
+            @like-update="updateLike"
+            @change-theme="changeTheme"
+            @images-update="updateImages"
+            @deleteImage="deleteImage"
+            @copy-note="copyNote"
+            @bin-update="updateBin"
+            @archive-update="updateArchive"
+            @delete-note="deleteNote"
+            @cancel-the-note="deleteNote"
+            @add-task="addTask"
+            @delete-task="deleteTask"
+            @change-task-status="changeTaskStatus"
+            @task-data-update="taskDataUpdate"
+            @task-status-update="taskStatusUpdate"
+            @cancel-task="clearTaskData"
+            @change-pin="changePin"
+            @save-the-note="saveTheNote(false)"
+            :note-is-new="noteIsNew"
+            :pin="pin"
+            :title="title"
+            :content="content"
+            :theme="theme"
+            :liked="liked"
+            :archived="archived"
+            :trashed="trashed"
+            :images="images"
+            :task-data="taskData"
+            :task-status="taskStatus"
+            :tasks-list="tasksList"
+            >
+        </note-editor>
+    </span>
 </template>
 
 <script lang="ts">
     import HintText from "../Hint Text/HintText.vue";
     import NoteEditor from "../Note Editor/NoteEditor.vue";
     import PinNotes from "../Pin Notes/PinNotes.vue";
-    import Pin from "../../icons/Pin.vue"
+    import Pin from "../../icons/Pin.vue";
+    import LoginPage from "../Login Page/Login.vue";
 
     type NoteType = {
         id: string,
@@ -133,6 +137,8 @@
         min: string,
         sec: string,
         emptyTrashConfirmPanel: boolean,
+        loginPage: boolean,
+        userId: string
     }
     export default{
         name: "AppMain",
@@ -140,7 +146,8 @@
             "hint-text": HintText,
             "note-editor": NoteEditor,
             "pin": Pin,
-            "pin-notes": PinNotes
+            "pin-notes": PinNotes,
+            "login-page": LoginPage
         },
         props: {
             panel: {
@@ -177,10 +184,24 @@
                 min: "",
                 sec: "",
                 emptyTrashConfirmPanel: false,
+                loginPage: true,
+                userId: ""
             }
         },
         methods: {
-            generateNoteId : function () {
+            getUserInfo: function(userId: string, email: string, notes: NoteType[]) {
+                this.loginPage = false;
+                this.userId = userId;
+                if( notes ) {
+                    const tempNotesArray = Object.values(notes);
+                    tempNotesArray.forEach((note: NoteType) => {
+                        this.storedNotes.push(note);
+                    })
+                } else {
+                    console.log("Database Is Empty!");
+                }
+            },
+            generateNoteId: function () {
                 let randomNum = Math.floor((Math.random() * 26));
                 this.randomAlphabet = this.alphabets[randomNum];
                 randomNum = Math.floor((Math.random() * 26));
@@ -197,19 +218,6 @@
                     this.sec = tempTime.getSeconds().toString();
                 }
                 this.id = this.randomAlphabet + this.randomAlphabet2 + this.min + this.sec;
-            },
-            getNotesFromDB: async function() {
-                const url = "https://notes-app-313-default-rtdb.asia-southeast1.firebasedatabase.app/Notes/.json";
-                const response = await fetch(url);
-                const storedNotesInfo: NoteType[] = await response.json();
-                if( storedNotesInfo ) {
-                    const tempNotesArray = Object.values(storedNotesInfo);
-                    tempNotesArray.forEach((note: NoteType) => {
-                        this.storedNotes.push(note);
-                    })
-                } else {
-                    console.log("Database Is Empty!");
-                }    
             },
             postNotesToDB: async function(note: NoteType) {
                 let tempTasks: TaskType[];
@@ -246,7 +254,7 @@
                         images: [...tempImages]
                     })
                 }
-                const url = "https://notes-app-313-default-rtdb.asia-southeast1.firebasedatabase.app/Notes/" + note.id + ".json";
+                const url = "https://notes-app-313-default-rtdb.asia-southeast1.firebasedatabase.app/UsersAuthList/" + this.userId + "/Notes/" + note.id + ".json";
                 const res = await fetch(
                     url,
                     options
@@ -265,7 +273,7 @@
                         "Content-Type": "application/json"
                     },
                 }
-                const url = "https://notes-app-313-default-rtdb.asia-southeast1.firebasedatabase.app/Notes/" + id + ".json";
+                const url = "https://notes-app-313-default-rtdb.asia-southeast1.firebasedatabase.app/UsersAuthList/" + this.userId + "/Notes/" + id + ".json";
                 const res = await fetch(
                     url,
                     options
@@ -513,9 +521,6 @@
             homePanelLength: function(): number {
                 return this.allNotes.length + this.pinnedNotes.length;
             }
-        },
-        mounted() {
-            this.getNotesFromDB.call(this);
         },
     }
 </script>

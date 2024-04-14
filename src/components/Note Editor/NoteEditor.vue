@@ -1,5 +1,6 @@
 <template>
-  <section :class="[theme, 'editor']">
+  <span>
+    <section :class="[theme, 'editor']">
     <div class="editor-header">
       <button @click="saveTheNote">
         <span class="material-symbols-outlined">keyboard_backspace</span>
@@ -78,6 +79,7 @@
     </note-options>
   </section>
   <section class="overlay" @click="saveTheNote"></section>
+  </span>
 </template>
 
 <script lang="ts">

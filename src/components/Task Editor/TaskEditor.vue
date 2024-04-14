@@ -1,33 +1,35 @@
 <template> 
-	<section class="task-panel">
-        <div class="task-input-panel" v-if="taskPanel">
-            <div class="option-btn">
-                <input type="checkbox"  ref="checkbox" v-model="taskInputStatus" style="display: none;"> 
-                <span class="checkbox" @click="checkboxClick">
-                    <span v-if="taskInputStatus" class="material-symbols-outlined">done</span>
-                </span>
-            </div>
-    		<input type="text" class="input-task" v-model="taskInputData" placeholder="List item:" @keydown.enter="addNewTask">
-	    	<button @click="addNewTask" class="task-add-btn option-btn">
-                <span class="material-symbols-outlined">add</span>
-            </button>
-	    </div>
-    </section>
-	        <ul class="task-container" v-if="tasksList.length > 0">
-		        <li v-for="(task, index) in tasksList" :key="index">
-                    <span v-if="task.data !== '' && task.id !== ''" class="list-box">
-                        <button :class="['checkbox',checkboxTheme]" @click="taskStatusClick(task)">
-                            <input type="checkbox" style="display: none;" v-model="task.completed" @click="changeTaskStatus(task.id)"> 
-                            <span v-if="task.completed" class="material-symbols-outlined">done</span>
-                        </button>
-			            <p :class="task.completed?'task-completed':''" @click="changeTaskStatus(task.id)"> {{ task.data }} </p>
-		    	        <button @click="deleteThisTask(task)" class="task-delete-btn option-btn"> 
-                            <span class="material-symbols-outlined">delete</span>
-                        </button>
+	<span>
+        <section class="task-panel">
+            <div class="task-input-panel" v-if="taskPanel">
+                <div class="option-btn">
+                    <input type="checkbox"  ref="checkbox" v-model="taskInputStatus" style="display: none;"> 
+                    <span class="checkbox" @click="checkboxClick">
+                        <span v-if="taskInputStatus" class="material-symbols-outlined">done</span>
                     </span>
-	    	    </li>
-    	    </ul>
-    <section class="overlay2" v-if="taskPanel"></section>
+                </div>
+                <input type="text" class="input-task" v-model="taskInputData" placeholder="List item:" @keydown.enter="addNewTask">
+                <button @click="addNewTask" class="task-add-btn option-btn">
+                    <span class="material-symbols-outlined">add</span>
+                </button>
+            </div>
+        </section>
+                <ul class="task-container" v-if="tasksList.length > 0">
+                    <li v-for="(task, index) in tasksList" :key="index">
+                        <span v-if="task.data !== '' && task.id !== ''" class="list-box">
+                            <button :class="['checkbox',checkboxTheme]" @click="taskStatusClick(task)">
+                                <input type="checkbox" style="display: none;" v-model="task.completed" @click="changeTaskStatus(task.id)"> 
+                                <span v-if="task.completed" class="material-symbols-outlined">done</span>
+                            </button>
+                            <p :class="task.completed?'task-completed':''" @click="changeTaskStatus(task.id)"> {{ task.data }} </p>
+                            <button @click="deleteThisTask(task)" class="task-delete-btn option-btn"> 
+                                <span class="material-symbols-outlined">delete</span>
+                            </button>
+                        </span>
+                    </li>
+                </ul>
+        <section class="overlay2" v-if="taskPanel"></section>
+    </span>
 </template>	
 <script lang="ts">
 

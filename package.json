@@ -2,7 +2,7 @@
   "name": "notes-app",
   "version": "0.0.0",
   "private": true,
-  "homepage": "https://khizarq313.github.io/notes-app/tree/main",
+  "homepage": "https://khizarq313.github.io/notes-app/tree/main/",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
@@ -13,6 +13,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "firebase": "^10.11.0",
     "sass": "^1.58.0",
     "vue": "^3.2.45"
   },
