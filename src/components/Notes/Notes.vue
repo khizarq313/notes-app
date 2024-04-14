@@ -191,6 +191,7 @@
         methods: {
             getUserInfo: function(userId: string, email: string, notes: NoteType[]) {
                 this.loginPage = false;
+                console.log("user email : " + email);
                 this.userId = userId;
                 if( notes ) {
                     const tempNotesArray = Object.values(notes);

@@ -2,7 +2,7 @@
   "name": "notes-app",
   "version": "0.0.0",
   "private": true,
-  "homepage": "https://khizarq313.github.io/notes-app/tree/main/",
+  "homepage": "https://khizarq313.github.io/notes-app/tree/gh-pages",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
