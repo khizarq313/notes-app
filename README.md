@@ -27,3 +27,4 @@ This is a simple notes app built using Vue.js, Typescript and Sass.
 - `Clone` the respository
 - `npm install` - To install project dependencies
 - `npm run dev` - To start the development server# notes-app
+# notes-app
