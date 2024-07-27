@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "Glacial Indifference";
-  src: url("@/assets/fonts/GlacialIndifference-Regular.otf");
+  font-family: "Glacial_Indifference";
+  src: url("/src/assets/fonts/GlacialIndifference-Regular.otf");
 }
 
 * {
@@ -14,7 +14,7 @@ html {
 }
 
 body, body * {
-  font-family: 'Glacial Indifference', sans-serif;
+  font-family: 'Glacial_Indifference', sans-serif;
 }
 
 .material-symbols-outlined,.material-symbols-rounded {

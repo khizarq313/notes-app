@@ -5,4 +5,5 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   base: "/notes-app/",
   plugins: [vue()],
+  assetsInclude: ['**/*.otf', '**/*.woff', '**/*.woff2'],
 })
