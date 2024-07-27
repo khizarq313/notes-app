@@ -1,0 +1,87 @@
+📝 Task planner for Notes
+
+---=------------------------------------------------------------------------------------------------------------------------------------------
+
+🌟 Signs -
+
+Improvements/ideas - 🤔
+Task in progress - ⏳
+Done/selected - ✅
+Task blocked - 🚫
+Problem - 🔴
+Solution - 🟢
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+🌟 Features and app structure -
+- Header ✅
+    - Title ✅
+    - Button for changing the theme ✅
+    - Polish theme button
+
+- Main ⏳
+    - Notes container ✅
+    - Note editor ✅
+        - Back/Save button ✅
+        - Like button ✅
+        - Input ✅
+        - Textarea ✅
+        - More options button ✅
+        - Title should not be in the same line as back button
+            - Note theme palette ✅
+            - Insert image button ✅
+            - Make a copy button ✅
+            - Move to recycle bin ✅
+            - Archieve note ✅
+            - Unarchieve note (on archieve page) ✅
+            - Move to recycle bin (on archieve page) ✅
+            - Recycle note (on recycle bin page) ✅
+            - Permanent delete button (on recycle bin page) ✅
+
+- Footer ⏳
+    - Home button
+    - Favorite button
+    - Recycle bin button
+
+- Overlay 
+
+- App wide theme (dark/light) ✅
+- Add Events option in  notes
+- Updated options panel 
+- Updated theme selection 
+- Break the app in multiple small components
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+🌟 Problem solving -
+
+🔴 - How to add theme app wide?
+🟢 - Create a state property called "theme" with a value of string. Give a default theme value ("light"/"dark").
+    When the theme button is clicked, change the theme to be opposite of what it is. Based on theme, give the outermost
+    container a class.
+
+🤔 - a) Could assign the "theme" value directly as class, saving more calculation further.
+    Issues - If someone changes the string value of "theme", it will require to be changed in CSS as well because a class with
+            older theme name is in use.
+
+    - b) Could chage the data type of "theme" to boolean, easy to toggle, easy to assign a dynamic  class based on that, less 
+        calculation overall. ✅
+    Issues - None
+
+
+🔴 - How to break the app in smaller components?
+🟢 - ???
+
+🔴 - Structure of note editor
+🟢 - Two possible states -> create new note, edit existing note
+        a) Create note: Send data upwards
+        b) Edit note: Receive data + send data upwards
+
+        Parent = App
+        Child = Note dialog
+
+        id, title, content, images = data
+        Sent to child using props
+        
+
+---------------------------------------------------------------------------------------------------------------------------------------------

@@ -1,5 +1,6 @@
 <template>
-  <section 
+  <span>
+    <section 
     :class="moreOptions ? ['more-options', 'more-options-dark'] : 'more-options'"
     >
     <div v-if="moreOptions" class="options-container">
@@ -68,7 +69,8 @@
       </button>
     </div>
     <div class="options-panel">
-      <button @click="getImage" :class="moreOptions ? 'option-btn': 'gallery-btn'">
+      <button :class="moreOptions ? 'option-btn': 'gallery-btn'">
+        <!-- @click="getImage" -->
         <input
           ref="inputRef"
           type="file"
@@ -89,6 +91,7 @@
     class="overlay"
     @click="toggleMoreOptions"
   ></section>
+  </span>
 </template>
 
 <script lang="ts">

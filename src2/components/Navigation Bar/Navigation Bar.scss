@@ -1,0 +1,28 @@
+.nav-bar {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    height: 85vh;
+    width: 8rem;
+    padding-left: 2rem;
+    align-items: center;
+    justify-content: space-evenly;
+    position: fixed;
+    bottom: 0;
+    background-color: inherit;
+}
+
+.nav-btn,.current-nav-btn {
+    height: 60px;
+    width: 60px;
+    font-size: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s ease-in-out;
+}
+
+.current-nav-btn {
+    font-size: 5rem;
+    color: #3368fe;
+}
